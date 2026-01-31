@@ -1,6 +1,6 @@
 # Estimation of Distribution Algorithm (EDA) in Julia
 # Author: Arturo Erdely
-# Last update: 2023-10-04
+# Last update: 2026-01-01
 
 """
     EDA(fobj, valmin, valmax; iEnteros = zeros(Int, 0), tamgen = 1000, propselec = 0.3, difmax = 0.00001, maxiter = 1000)
@@ -96,7 +96,7 @@ function EDA(fobj, valmin, valmax; iEnteros = zeros(Int, 0), tamgen = 1000,
     end
     println("...done")
     fGselec = zeros(nselec)
-    for i ∈ 1:length(fGselec)
+    for i ∈ eachindex(fGselec)
         fGselec[i] = fobj(Gselec[i, :])
     end
     xopt = Gselec[findmin(fGselec)[2], :]
@@ -112,5 +112,3 @@ function EDA(fobj, valmin, valmax; iEnteros = zeros(Int, 0), tamgen = 1000,
     end
     return r
 end
-
-@info EDA
