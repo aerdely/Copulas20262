@@ -36,11 +36,12 @@ end
 
 
 # Cargar datos en un DataFrame
-datasaurus = CSV.read("datasaurus.csv", DataFrame)
+datasaurus = CSV.read("11_datasaurus.csv", DataFrame)
 typeof(datasaurus)
 
 
 # Estructura del DataFrame
+
 describe(datasaurus)
 dataset_names = sort(unique(datasaurus.dataset))
 nombres = [collect(1:length(dataset_names)) dataset_names]
@@ -181,19 +182,3 @@ Dinosaurio
     y misma correlación, pueden ser muy distintos. ¡Cuidado!
 
 =#
-
-
-## Aportación del Dr. Mario Rivera 
-
-mariosaurus = CSV.read("Mario_saurus.csv", DataFrame)
-mean([mariosaurus.x mariosaurus.y], dims=1)
-println(μ)
-std([mariosaurus.x mariosaurus.y], dims=1)
-println(σ)
-cor(mariosaurus.x, mariosaurus.y)
-r
-
-scatter(mariosaurus.x, mariosaurus.y, title = "Mariosaurus", legend = false, 
-      xlim = (-15, 105), ylim = (-15, 105), aspect_ratio = 1,
-      showaxis = false, grid = false, mc = :black, ms = 2
-)
