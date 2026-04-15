@@ -54,7 +54,7 @@ Aproximación poligonal de una función de distribución continua en un vector d
 con base en una muestra aleatoria observada dada por el vector `xobs`. El parámetro opcional
 `mínimo` puede escogerse como un valor menor que el mínimo de la muestra, y `máximo` como
 un valor mayor que el máximo de la muestra, si así se requiere.
-greater value than the sample maximum, if required.
+
 ## Ejemplo
 ```
 xobs = randn(10_000)
@@ -92,7 +92,7 @@ end
 
 # Simular muestra y calcular distribución teórica y empírica
 begin
-    n = 5 # probar n ∈ {5, 100, 1_000}
+    n = 1000 # probar n ∈ {5, 100, 1_000}
     Xmodel = Gamma(2.0, 3.0)
     xobs = rand(Xmodel, n)
     x = collect(range(0.0, quantile(Xmodel, 0.995), length = 1_000))
