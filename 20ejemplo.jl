@@ -1,6 +1,6 @@
 ### (pseudo)observaciones de una cópula
 ### Autor: Arturo Erdely
-### Fecha: 2026-04-03
+### Fecha: 2026-04-18
 
 ## Paquetes instalados previamente
 
@@ -58,10 +58,12 @@ end
 
 ## Ejemplo de evaluación de las cópulas
 
-u, v = 0.8, 0.3
+u, v = 0.358, 0.817  # verificar también en la frontera de [0,1]^2
 C(u, v, θ) # cópula teórica
 Cn(u, v, [pU pV]) # cópula empírica
-CopBer(u, v, [pU pV], 100) # cópula Bernstein
+CopBer(u, v, [pU pV], 30) # cópula Bernstein
+CopCB(u, v, [pU pV], 30) # cópula checkerboard
+CopLB(u, v, [pU pV], 30) # cópula Linear B-Spline
 
 
 ## Comparar curvas de nivel de las tres cópulas
@@ -97,5 +99,23 @@ end
     nivCopula = contour(uu, vv, Copula, xlabel = L"u", ylabel = L"v",
                         xticks = [0, 0.5, 1], yticks = [0, 0.5, 1], 
                         fill = true, size = (550, 500), title = "Cópula Bernstein"
+    )
+end
+
+# Cópula Linear B-Spline (tarda aprox 30 segundos)
+@time begin
+    Copula = [CopLB(u,v, [pU pV], 30) for u in uu, v in vv] 
+    nivCopula = contour(uu, vv, Copula, xlabel = L"u", ylabel = L"v",
+                        xticks = [0, 0.5, 1], yticks = [0, 0.5, 1], 
+                        fill = true, size = (550, 500), title = "Cópula Linear B-Spline"
+    )
+end
+
+# Cópula checkerboard (tarda menos de 1 segundo)
+@time begin
+    Copula = [CopCB(u,v, [pU pV], 30) for u in uu, v in vv] 
+    nivCopula = contour(uu, vv, Copula, xlabel = L"u", ylabel = L"v",
+                        xticks = [0, 0.5, 1], yticks = [0, 0.5, 1], 
+                        fill = true, size = (550, 500), title = "Cópula checkerboard"
     )
 end
