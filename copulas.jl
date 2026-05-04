@@ -1,6 +1,6 @@
 ### Biblioteca de funciones para cópulas 
 ### Autor: Arturo Erdely
-### Última actualización: 2026-04-19
+### Última actualización: 2026-05-04
 
 using Distributions, HCubature # instalados previamente
 
@@ -128,6 +128,26 @@ end
 
 
 """
+    copulaPseudObs(xobs::Vector{<:Real}, yobs::Vector{<:Real})
+
+Calcula las pseudo-observaciones de una muestra aleatoria bivariada dada por los vectores
+`xobs` e `yobs`, con base en la aproximación poligonal de la función de distribución empírica
+de cada muestra. Devuelve una matriz de dos columnas, donde cada fila representa un par de
+pseudo-observaciones.  
+
+Utiliza:
+- función `poligonal` en `copulasaux.jl`
+"""
+function copulaPseudObs(xobs::Vector{<:Real}, yobs::Vector{<:Real})
+    n = length(xobs)
+    uobs = poligonal(xobs, xobs)
+    vobs = poligonal(yobs, yobs)
+    cobs = hcat(uobs, vobs)
+    return cobs
+end
+
+
+"""
     Schweizer(C::Function)
 
 Calcula la medida de dependencia de Schweizer-Wolff para la cópula dada por la función `C(u,v)`.
@@ -206,4 +226,4 @@ function Spearman(cobs::Matrix{<:Real}, m::Int = size(cobs, 1))
 end
 
 
-@info "Cn  CopBer  CopCB  CopLB  Schweizer  Spearman"
+@info "Cn  CopBer  CopCB  CopLB  copulaPseudObs  Schweizer  Spearman"
