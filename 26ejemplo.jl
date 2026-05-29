@@ -65,14 +65,14 @@ begin
     M(u) = min(u, 1-θ)
     S(u) = (1 - θ) * cdf(X₀, FXinv(u))
     uu = collect(range(0, 1, length=1_000))
-    plot(uu, M.(uu), lw = 2, color = :green, label = L"W(u,1-θ)",
+    plot(uu, M.(uu), lw = 2, color = :green, label = L"M(u,1-θ)",
          xlabel = L"u", ylabel = L"S_{\!X,Y\,}(u,1-θ)",
          xticks = [0, θ, 1-θ, 1], yticks = [0, 1-θ, 1],
          size = (400,400)
     )
     hline!([1], lw = 0.1, color = :lightgray, label = "")
     plot!(uu, Π.(uu), lw = 2, color = :gray, label = L"\Pi(u,1-θ)")
-    plot!(uu, W.(uu), lw = 2, color = :red, label = L"M(u,1-θ)")
+    plot!(uu, W.(uu), lw = 2, color = :red, label = L"W(u,1-θ)")
     plot!(uu, S.(uu), lw = 3, color = :black, label = L"S_{\!X,Y\,}(u,1-θ)")
 end
 
